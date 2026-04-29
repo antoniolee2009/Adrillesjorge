@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Adrilles Jorge – Vereador por São Paulo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f4f0;
+    --gray-dark: #1a1a1a;
+    --gray-mid: #3a3a3a;
+    --gray-light: #8a8a8a;
+    --gray-border: #2a2a2a;
+    --accent: #c8a96e;
+    --accent-dim: #9a7d4a;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 28px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(0px);
+    transition: backdrop-filter 0.4s;
+  }
+
+  nav.scrolled {
+    backdrop-filter: blur(20px);
+    background: rgba(10,10,10,0.85);
+    border-bottom: 1px solid var(--gray-border);
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    position: relative;
+    padding: 120px 60px 80px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(200,169,110,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 20% 70%, rgba(200,169,110,0.04) 0%, transparent 60%);
+  }
+
+  .hero-line {
+    position: absolute;
+    left: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 200px;
+    background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+    opacity: 0.4;
+  }
+
+  .hero-content {
+    max-width: 900px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--gray-light);
+    max-width: 560px;
+    margin: 0 auto 56px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .btn-primary {
+    padding: 14px 36px;
+    background: var(--accent);
+    color: var(--black);
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .btn-primary:hover { background: #d4b87e; transform: translateY(-1px); }
+
+  .btn-ghost {
+    padding: 14px 36px;
+    background: transparent;
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--gray-border);
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s;
+  }
+
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-stats {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1s forwards;
+  }
+
+  .stat { text-align: center; }
+
+  .stat-number {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--accent);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+  }
+
+  /* ── SECTIONS COMMONS ── */
+  section { padding: 120px 60px; }
+
+  .section-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 24px;
+  }
+
+  .section-title em { font-style: italic; color: var(--accent); }
+
+  .section-body {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--gray-light);
+    line-height: 1.8;
+    max-width: 520px;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gray-border), transparent);
+    margin: 0 60px;
+    width: calc(100% - 120px);
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .about-visual {
+    position: relative;
+    aspect-ratio: 3/4;
+    max-height: 580px;
+  }
+
+  .about-frame {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--gray-border);
+  }
+
+  .about-frame::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: 20px;
+    bottom: 20px;
+    border: 1px solid rgba(200,169,110,0.2);
+    z-index: -1;
+  }
+
+  .about-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--gray-dark) 0%, #111 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .about-initials {
+    font-family: var(--serif);
+    font-size: 6rem;
+    font-weight: 300;
+    color: var(--accent);
+    opacity: 0.6;
+    line-height: 1;
+  }
+
+  .about-role {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+  }
+
+  .about-badge {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    background: var(--accent);
+    color: var(--black);
+    padding: 16px 24px;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .about-text { padding: 20px 0; }
+
+  .about-quote {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--white);
+    margin: 32px 0;
+    padding-left: 24px;
+    border-left: 1px solid var(--accent);
+  }
+
+  /* ── AGENDA / PROJETOS ── */
+  .projects-section { background: var(--gray-dark); }
+
+  .projects-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin-top: 64px;
+  }
+
+  .project-card {
+    background: var(--black);
+    padding: 48px 40px;
+    border-top: 2px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gray-border), transparent);
+  }
+
+  .project-card:hover {
+    border-top-color: var(--accent);
+    background: #111;
+  }
+
+  .project-num {
+    font-family: var(--serif);
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--gray-border);
+    line-height: 1;
+    margin-bottom: 24px;
+    transition: color 0.3s;
+  }
+
+  .project-card:hover .project-num { color: var(--accent); opacity: 0.4; }
+
+  .project-title {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    font-size: 0.88rem;
+    color: var(--gray-light);
+    line-height: 1.7;
+  }
+
+  /* ── VALORES / BENEFICIOS ── */
+  .values-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .values-list {
+    margin-top: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .value-item {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--gray-border);
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 24px;
+    align-items: start;
+    transition: padding-left 0.3s;
+    cursor: default;
+  }
+
+  .value-item:hover { padding-left: 8px; }
+
+  .value-item:first-child { border-top: 1px solid var(--gray-border); }
+
+  .value-icon {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-top: 2px;
+  }
+
+  .value-name {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .value-desc {
+    font-size: 0.85rem;
+    color: var(--gray-light);
+    line-height: 1.7;
+  }
+
+  .values-right {
+    position: sticky;
+    top: 120px;
+  }
+
+  .values-big-quote {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 300;
+    line-height: 1.3;
+    color: var(--white);
+    margin-top: 40px;
+  }
+
+  .values-big-quote em { font-style: italic; color: var(--accent); }
+
+  /* ── DEPOIMENTOS ── */
+  .testimonials-section { background: var(--gray-dark); }
+
+  .testimonials-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .testimonials-grid {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .testimonial-card {
+    background: var(--black);
+    padding: 48px;
+    position: relative;
+  }
+
+  .testimonial-card:first-child {
+    grid-column: 1 / -1;
+    background: #0f0f0f;
+  }
+
+  .testimonial-mark {
+    font-family: var(--serif);
+    font-size: 5rem;
+    color: var(--accent);
+    opacity: 0.3;
+    line-height: 0.6;
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  .testimonial-text {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--white);
+    margin-bottom: 28px;
+  }
+
+  .testimonial-card:first-child .testimonial-text {
+    font-size: 1.5rem;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .author-dot {
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .author-name {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    text-align: center;
+    padding: 160px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(200,169,110,0.06) 0%, transparent 70%);
+  }
+
+  .cta-line-top {
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gray-border), transparent);
+  }
+
+  .cta-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .cta-section .section-title { font-size: clamp(2.5rem, 5vw, 4rem); }
+
+  .cta-section .section-body {
+    margin: 0 auto 48px;
+    text-align: center;
+  }
+
+  .cta-contact {
+    margin-top: 48px;
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+
+  .contact-item {
+    text-align: center;
+  }
+
+  .contact-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    margin-bottom: 8px;
+  }
+
+  .contact-value {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--accent);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--gray-dark);
+    border-top: 1px solid var(--gray-border);
+    padding: 48px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .footer-logo {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--white);
+  }
+
+  .footer-logo span { color: var(--accent); }
+
+  .footer-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--gray-light);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── SCROLL PROGRESS ── */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: var(--accent);
+    z-index: 200;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 24px 28px; }
+    .nav-links { display: none; }
+    section { padding: 80px 28px; }
+    .hero { padding: 100px 28px 60px; }
+    .about { grid-template-columns: 1fr; gap: 48px; }
+    .about-visual { max-height: 360px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .values-inner { grid-template-columns: 1fr; gap: 40px; }
+    .values-right { position: static; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .testimonial-card:first-child { grid-column: auto; }
+    footer { flex-direction: column; text-align: center; padding: 40px 28px; }
+    .hero-stats { gap: 40px; }
+    .divider { margin: 0 28px; width: calc(100% - 56px); }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">Adrilles <span>Jorge</span></a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#projetos">Projetos</a></li>
+    <li><a href="#valores">Valores</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Vereador por São Paulo · União Brasil</p>
+    <h1 class="hero-title">
+      Política com<br /><em>propósito</em><br />e coragem
+    </h1>
+    <p class="hero-subtitle">
+      Jornalista, escritor e vereador eleito com 25.038 votos. Comprometido com a liberdade, a transparência e o bem-estar dos paulistanos.
+    </p>
+    <div class="hero-cta">
+      <a href="#projetos" class="btn-primary">Ver Projetos</a>
+      <a href="#contato" class="btn-ghost">Fale com o Gabinete</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-number">25mil</span>
+      <span class="stat-label">Votos recebidos</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">R$2,5M</span>
+      <span class="stat-label">Em emendas destinadas</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">1M+</span>
+      <span class="stat-label">Seguidores no Instagram</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="about">
+    <div class="about-visual">
+      <div class="about-frame">
+        <div class="about-placeholder">
+          <span class="about-initials">AJ</span>
+          <span class="about-role">Vereador · SP · 2025–2028</span>
+        </div>
+      </div>
+      <div class="about-badge">União Brasil · 44011</div>
+    </div>
+
+    <div class="about-text reveal">
+      <p class="section-tag">Sobre o mandato</p>
+      <h2 class="section-title">Uma voz que<br /><em>não se cala</em></h2>
+
+      <p class="section-body">
+        Nascido em Campos Gerais (MG), Adrilles Jorge construiu uma trajetória marcada pela palavra: como repórter, editor, produtor, escritor e comentarista político. Na Câmara Municipal de São Paulo, traz esse mesmo espírito — direto, sem eufemismos.
+      </p>
+
+      <blockquote class="about-quote">
+        "Nossa prioridade é devolver em trabalho e ações práticas a confiança que nos foi depositada nas urnas."
+      </blockquote>
+
+      <p class="section-body">
+        Membro da Comissão de Educação, Cultura e Esportes, o vereador atua com foco em inclusão, liberdade de expressão, segurança pública e proteção às famílias paulistanas.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJETOS -->
+<section id="projetos" class="projects-section">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div class="reveal">
+      <p class="section-tag">Iniciativas legislativas</p>
+      <h2 class="section-title">O que estamos<br /><em>construindo</em></h2>
+    </div>
+
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-num">01</div>
+        <h3 class="project-title">Isenção de Zona Azul para pessoas com TEA</h3>
+        <p class="project-desc">Projeto que garante isenção de estacionamento rotativo a portadores de Transtorno do Espectro Autista, beneficiando até 50 mil vagas na cidade e reduzindo os custos com deslocamentos para tratamentos.</p>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">02</div>
+        <h3 class="project-title">Proibição de publicidade de apostas esportivas</h3>
+        <p class="project-desc">Vedação de anúncios de apostas online em espaços públicos, combinada com campanhas educativas em escolas sobre os riscos do vício — protegendo especialmente os jovens paulistanos.</p>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">03</div>
+        <h3 class="project-title">Projeto Pela Liberdade do Brasil</h3>
+        <p class="project-desc">Iniciativa voltada à defesa dos valores democráticos e da liberdade de expressão, garantindo espaço plural no debate público municipal.</p>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">04</div>
+        <h3 class="project-title">Ações sociais com vulneráveis</h3>
+        <p class="project-desc">Apoio a programas de esporte (futebol, jiu-jitsu, capoeira), alimentação para crianças, oficinas de beleza para jovens mães e eventos de inclusão para pessoas com deficiência.</p>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">05</div>
+        <h3 class="project-title">Reforma e transparência do Judiciário</h3>
+        <p class="project-desc">Defesa ativa de mecanismos que contenham o avanço do Judiciário sobre o processo político, propondo CPIs e instrumentos de fiscalização do sistema judicial brasileiro.</p>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">06</div>
+        <h3 class="project-title">Emendas parlamentares — R$ 2,5 milhões</h3>
+        <p class="project-desc">Destinação de recursos para saúde, cultura, educação, empreendedorismo e projetos sociais nos primeiros seis meses de mandato — compromisso concreto com resultados reais.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- VALORES -->
+<section id="valores">
+  <div class="values-inner">
+    <div>
+      <div class="reveal">
+        <p class="section-tag">Princípios</p>
+        <h2 class="section-title">O que guia<br /><em>este mandato</em></h2>
+      </div>
+
+      <div class="values-list">
+        <div class="value-item reveal">
+          <span class="value-icon">I.</span>
+          <div>
+            <h4 class="value-name">Liberdade de Expressão</h4>
+            <p class="value-desc">A palavra é o instrumento da democracia. Defender o direito de falar livremente é defender a própria república.</p>
+          </div>
+        </div>
+
+        <div class="value-item reveal">
+          <span class="value-icon">II.</span>
+          <div>
+            <h4 class="value-name">Transparência Total</h4>
+            <p class="value-desc">Cada emenda, cada voto, cada pronunciamento — tudo público. O eleitor tem o direito de saber o que é feito em seu nome.</p>
+          </div>
+        </div>
+
+        <div class="value-item reveal">
+          <span class="value-icon">III.</span>
+          <div>
+            <h4 class="value-name">Inclusão com Responsabilidade</h4>
+            <p class="value-desc">Políticas sociais efetivas, não retórica. Inclusão que chega a quem precisa: crianças, famílias, pessoas com deficiência.</p>
+          </div>
+        </div>
+
+        <div class="value-item reveal">
+          <span class="value-icon">IV.</span>
+          <div>
+            <h4 class="value-name">Participação Popular</h4>
+            <p class="value-desc">A Câmara Municipal é a casa do povo. O contato direto com o cidadão é a essência do mandato — sem intermediários.</p>
+          </div>
+        </div>
+
+        <div class="value-item reveal">
+          <span class="value-icon">V.</span>
+          <div>
+            <h4 class="value-name">Coragem Política</h4>
+            <p class="value-desc">Dizer o que precisa ser dito, votar como prometeu, enfrentar o impopular quando necessário. Política com coerência.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="values-right reveal">
+      <p class="section-tag">Perfil</p>
+      <p class="section-body">Formado em Jornalismo pela PUC-MG. Ex-comentarista político. Escritor. Poeta. 1 milhão de seguidores no Instagram. Mais de duas décadas de atuação na mídia antes de ingressar na política.</p>
+
+      <div class="values-big-quote">
+        "Trabalhamos com <em>responsabilidade</em>, coerência e coragem."
+      </div>
+
+      <div style="margin-top: 48px; padding: 32px; border: 1px solid var(--gray-border); background: var(--gray-dark);">
+        <p class="section-tag" style="margin-bottom:16px;">Comissões</p>
+        <p style="font-size:0.88rem; color:var(--gray-light); line-height:1.8;">
+          — Comissão de Educação, Cultura e Esportes<br />
+          — Comissão de Constituição, Justiça e Legislação Participativa<br />
+          — Comissão de Relações Internacionais
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DEPOIMENTOS -->
+<section class="testimonials-section">
+  <div class="testimonials-inner">
+    <div class="reveal">
+      <p class="section-tag">Reconhecimento</p>
+      <h2 class="section-title">O que dizem<br /><em>sobre o mandato</em></h2>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <span class="testimonial-mark">"</span>
+        <p class="testimonial-text">Em seis meses, o vereador Adrilles Jorge mostrou que é possível fazer política com propósito, respeitando valores e entregando resultados reais para a população de São Paulo.</p>
+        <div class="testimonial-author">
+          <div class="author-dot"></div>
+          <span class="author-name">Jornal SP Norte · Julho 2025</span>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <span class="testimonial-mark">"</span>
+        <p class="testimonial-text">Com estilo firme e direto, o parlamentar defende valores conservadores e tem mostrado capacidade de diálogo com diferentes setores.</p>
+        <div class="testimonial-author">
+          <div class="author-dot"></div>
+          <span class="author-name">Análise de mandato · 2025</span>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <span class="testimonial-mark">"</span>
+        <p class="testimonial-text">A vereança tem contato direto com a população. A Câmara Municipal é a casa do povo — e é assim que trato meu mandato.</p>
+        <div class="testimonial-author">
+          <div class="author-dot"></div>
+          <span class="author-name">Adrilles Jorge · Portal da Câmara Municipal</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<section id="contato" class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="cta-line-top"></div>
+
+  <div class="cta-inner reveal">
+    <p class="section-tag">Gabinete</p>
+    <h2 class="section-title">Fale com o<br /><em>nosso gabinete</em></h2>
+    <p class="section-body">
+      O mandato é do povo de São Paulo. Se você tem uma demanda, uma ideia ou quer apoiar nossas iniciativas, entre em contato diretamente.
+    </p>
+
+    <div style="margin-top:40px; display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+      <a href="mailto:adrillesreisjorge@saopaulo.sp.leg.br" class="btn-primary">Enviar E-mail</a>
+      <a href="https://www.instagram.com/adrillesjorge/" target="_blank" class="btn-ghost">Instagram</a>
+    </div>
+
+    <div class="cta-contact">
+      <div class="contact-item">
+        <p class="contact-label">E-mail oficial</p>
+        <p class="contact-value">adrillesreisjorge@<br/>saopaulo.sp.leg.br</p>
+      </div>
+      <div class="contact-item">
+        <p class="contact-label">Telefone</p>
+        <p class="contact-value">(11) 3396-4303</p>
+      </div>
+      <div class="contact-item">
+        <p class="contact-label">Endereço</p>
+        <p class="contact-value">Viaduto Jacareí, 100<br/>Bela Vista · SP</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Adrilles <span>Jorge</span> · Vereador SP</div>
+  <ul class="footer-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#projetos">Projetos</a></li>
+    <li><a href="#valores">Valores</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Gabinete Adrilles Jorge · União Brasil 44011</p>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Progress bar
+  const bar = document.getElementById('progressBar');
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    bar.style.width = pct + '%';
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
